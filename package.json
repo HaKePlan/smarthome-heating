@@ -1,0 +1,37 @@
+{
+  "name": "smarthome-heating",
+  "version": "1.0.0",
+  "description": "API Server",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaKePlan/smarthome-heating.git"
+  },
+  "author": "Severin Clauss",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HaKePlan/smarthome-heating/issues"
+  },
+  "homepage": "https://github.com/HaKePlan/smarthome-heating#readme",
+  "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "ndb": "^1.1.5",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.18",
+    "morgan": "^1.10.0"
+  }
+}
