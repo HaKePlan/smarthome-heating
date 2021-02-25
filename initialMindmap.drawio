@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-25T19:59:40.781Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="0c8wp9bycsdcSSOPRChT" version="14.4.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-25T19:59:47.175Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="RmWbIIoNqPu_jQRy3Gyy" version="14.4.3" type="github">
   <diagram id="k84AM5X0mfqpDCBfa7iv" name="Page-1">
     <mxGraphModel dx="2066" dy="1185" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -52,7 +52,7 @@
           <mxGeometry y="146" width="180" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-27" value="Schema user" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="350" y="490" width="180" height="236" as="geometry" />
+          <mxGeometry x="350" y="490" width="180" height="206" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-28" value="name: &quot;testuser&quot;" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-27">
           <mxGeometry y="26" width="180" height="30" as="geometry" />
@@ -71,9 +71,6 @@
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-36" value="passwordChangedAt: &quot;Date&quot;" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-27">
           <mxGeometry y="176" width="180" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="Am0SmLYDXb8CziIWpbZ4-37" value="passwordChangedAt: &quot;Date&quot;" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-27">
-          <mxGeometry y="206" width="180" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
