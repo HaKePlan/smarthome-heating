@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-25T20:49:24.491Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="vC7rUNw6SzYP5LPgvMjJ" version="14.4.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-25T21:08:06.095Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="A3dedf--sNIoaLwWxkHX" version="14.4.3" type="github">
   <diagram id="k84AM5X0mfqpDCBfa7iv" name="Page-1">
     <mxGraphModel dx="2066" dy="1185" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4681" pageHeight="3300" math="0" shadow="0">
       <root>
@@ -73,10 +73,10 @@
           <mxGeometry y="176" width="180" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-58" value="Route&lt;br&gt;/api/v1/modbus" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="440" y="650" width="120" height="60" as="geometry" />
+          <mxGeometry x="440" y="640" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-59" value="Route&lt;br&gt;/api/v1/user" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="440" y="1160" width="120" height="60" as="geometry" />
+          <mxGeometry x="150" y="940" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-76" value="app.js" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="440" y="530" width="40" height="20" as="geometry" />
@@ -98,13 +98,13 @@
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-83" value="" style="endArrow=none;html=1;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="600" y="1040" as="sourcePoint" />
+            <mxPoint x="600" y="1520" as="sourcePoint" />
             <mxPoint x="600" y="520" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-84" value="" style="endArrow=none;html=1;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1120" y="1040" as="sourcePoint" />
+            <mxPoint x="1120" y="1520" as="sourcePoint" />
             <mxPoint x="1120" y="520" as="targetPoint" />
           </mxGeometry>
         </mxCell>
@@ -127,7 +127,7 @@
           <mxGeometry x="840" y="880" width="210" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-90" value="Route&lt;br&gt;/api/v1/profile" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="190" y="1150" width="120" height="60" as="geometry" />
+          <mxGeometry x="440" y="1080" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-91" value="getEntryByAdr" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1160" y="580" width="120" height="60" as="geometry" />
@@ -143,6 +143,82 @@
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-95" value="Schema &amp;nbsp;modbus" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1320" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-96" value="" style="endArrow=none;html=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1760" y="1000" as="sourcePoint" />
+            <mxPoint x="400" y="1000" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-97" value="/signup" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="1080" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-98" value="/login" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="1200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-99" value="/forgotPassword" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="1320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-100" value="/resetPassword" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="1440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-106" value="userinterface on mobileapp" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1940" y="2040" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-107" value="userinterface on centralized portal" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1920" y="1780" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-109" value="Heat transfer station" style="swimlane;" vertex="1" parent="1">
+          <mxGeometry x="2080" y="2020" width="600" height="340" as="geometry">
+            <mxRectangle x="2200" y="2020" width="150" height="23" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-108" value="Debian Server" style="swimlane;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-109">
+          <mxGeometry x="160" y="60" width="260" height="260" as="geometry">
+            <mxRectangle x="2220" y="2080" width="110" height="23" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-110" value="MongoDB" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-108">
+          <mxGeometry x="180" y="180" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-103" value="Modbus Controller" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-108">
+          <mxGeometry x="20" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-101" value="API Server" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-108">
+          <mxGeometry x="20" y="160" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-113" value="" style="endArrow=classic;startArrow=classic;html=1;" edge="1" parent="Am0SmLYDXb8CziIWpbZ4-108">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="209.5" as="sourcePoint" />
+            <mxPoint x="190" y="209.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-114" value="" style="endArrow=classic;startArrow=classic;html=1;" edge="1" parent="Am0SmLYDXb8CziIWpbZ4-108">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="90" y="190" as="sourcePoint" />
+            <mxPoint x="90" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-116" value="" style="endArrow=classic;startArrow=classic;html=1;exitX=0.988;exitY=0.663;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="Am0SmLYDXb8CziIWpbZ4-108" source="Am0SmLYDXb8CziIWpbZ4-105">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-30" y="210" as="sourcePoint" />
+            <mxPoint x="40" y="209.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-104" value="Controller&lt;br&gt;Climatix" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-109">
+          <mxGeometry x="450" y="100" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-105" value="userinterface on integrated Panel" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-109">
+          <mxGeometry x="40" y="220" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-115" value="" style="endArrow=classic;startArrow=classic;html=1;" edge="1" parent="Am0SmLYDXb8CziIWpbZ4-109" source="Am0SmLYDXb8CziIWpbZ4-103">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="340" y="139.5" as="sourcePoint" />
+            <mxPoint x="450" y="139.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-111" value="general controller" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" vertex="1" parent="1">
+          <mxGeometry x="2240" y="1600" width="120" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
