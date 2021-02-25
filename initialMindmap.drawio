@@ -1,11 +1,14 @@
-<mxfile host="app.diagrams.net" modified="2021-02-25T19:08:08.266Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="nxqPbgNbXMqJpHNg4S1S" version="14.4.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-25T19:11:07.478Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="NqeV8EGDCpc6RmVKfdof" version="14.4.3" type="github">
   <diagram id="k84AM5X0mfqpDCBfa7iv" name="Page-1">
     <mxGraphModel dx="2066" dy="1185" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="Am0SmLYDXb8CziIWpbZ4-1" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="505" y="320" width="80" height="80" as="geometry" />
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-6" value="Register 1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-7" value="+Attribute1&#xa;+Attribute2&#xa;+Attribute3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-6">
+          <mxGeometry y="30" width="160" height="90" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
