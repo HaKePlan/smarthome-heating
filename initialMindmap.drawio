@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-02-25T21:35:03.589Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="U04duA-x2JO-rIid--Fs" version="14.4.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-25T21:38:42.928Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="3D7PSkp8lisgzW4epgVl" version="14.4.3" type="github">
   <diagram id="k84AM5X0mfqpDCBfa7iv" name="Page-1">
-    <mxGraphModel dx="4132" dy="2370" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4681" pageHeight="3300" math="0" shadow="0">
+    <mxGraphModel dx="2066" dy="1185" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4681" pageHeight="3300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -162,10 +162,10 @@
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-100" value="/resetPassword" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="680" y="1440" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="Am0SmLYDXb8CziIWpbZ4-106" value="userinterface on mobileapp" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-106" value="user-interface on mobileapp" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="2770" y="1770" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="Am0SmLYDXb8CziIWpbZ4-107" value="userinterface on centralized portal" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-107" value="user-interface on centralized portal" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="1910" y="1780" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-109" value="Heat transfer station" style="swimlane;" vertex="1" parent="1">
@@ -173,12 +173,12 @@
             <mxRectangle x="2200" y="2020" width="150" height="23" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Am0SmLYDXb8CziIWpbZ4-108" value="Debian Server" style="swimlane;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-109">
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-108" value="Transfer station server" style="swimlane;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-109">
           <mxGeometry x="160" y="60" width="260" height="260" as="geometry">
             <mxRectangle x="2220" y="2080" width="110" height="23" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Am0SmLYDXb8CziIWpbZ4-110" value="MongoDB" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-108">
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-110" value="DB" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-108">
           <mxGeometry x="190" y="120" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-103" value="Modbus Controller" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-108">
@@ -191,11 +191,6 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="130" y="209.5" as="sourcePoint" />
             <mxPoint x="190" y="209.5" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Am0SmLYDXb8CziIWpbZ4-125" value="Mongoose" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Am0SmLYDXb8CziIWpbZ4-113">
-          <mxGeometry x="-0.2333" y="-3" relative="1" as="geometry">
-            <mxPoint y="1" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-114" value="" style="endArrow=classic;startArrow=classic;html=1;" edge="1" parent="Am0SmLYDXb8CziIWpbZ4-108">
@@ -223,7 +218,7 @@
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-104" value="Controller&lt;br&gt;Climatix" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-109">
           <mxGeometry x="450" y="100" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="Am0SmLYDXb8CziIWpbZ4-105" value="userinterface on integrated Panel" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-109">
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-105" value="user-interface on integrated Panel" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-109">
           <mxGeometry x="40" y="220" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-115" value="" style="endArrow=classic;startArrow=classic;html=1;" edge="1" parent="Am0SmLYDXb8CziIWpbZ4-109" source="Am0SmLYDXb8CziIWpbZ4-103">
@@ -258,8 +253,8 @@
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-137" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Am0SmLYDXb8CziIWpbZ4-136" target="Am0SmLYDXb8CziIWpbZ4-107">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Am0SmLYDXb8CziIWpbZ4-136" value="This userinterface is the centralized access for remote maintaining access and private controlling access (for private home owners). This web application works on a server, which has access to the general API controller" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="1690" y="1620" width="140" height="190" as="geometry" />
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-136" value="This user-interface is the centralized access for remote maintaining access and private controlling access (for private homeowners). This web application works on a server, which has access to the general API controller" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1570" y="1620" width="260" height="190" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-138" value="district heating central" style="swimlane;" vertex="1" parent="1">
           <mxGeometry x="1880" y="1340" width="680" height="340" as="geometry">
@@ -272,7 +267,7 @@
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-111" value="general API controller" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-126">
           <mxGeometry x="40" y="140" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="Am0SmLYDXb8CziIWpbZ4-117" value="MongoDB" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-126">
+        <mxCell id="Am0SmLYDXb8CziIWpbZ4-117" value="DB" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="Am0SmLYDXb8CziIWpbZ4-126">
           <mxGeometry x="70" y="40" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Am0SmLYDXb8CziIWpbZ4-127" value="" style="endArrow=classic;startArrow=classic;html=1;" edge="1" parent="Am0SmLYDXb8CziIWpbZ4-126">
