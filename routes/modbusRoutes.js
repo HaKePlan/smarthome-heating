@@ -1,12 +1,20 @@
 const express = require('express');
 
+const modbusController = require('../controllers/modbusController');
+
 const router = express.Router();
 
-router.route('/').get((req, res) => {
-  res.status(200).json({
-    status: 'sucess',
-    message: 'this is the getAllModbus route',
-  });
-});
+router
+  .route('/')
+  .get(modbusController.getAllEntrys)
+  .post(modbusController.createEntry); // only for testing and dev
+
+router
+  .route('/adress/:adr')
+  .get(modbusController.getEntryByAdr)
+  .patch(modbusController.updateEntyByAdr);
+
+router.route('/home').get(modbusController.getHomeEntrys);
+router.route('/alarm').get(modbusController.getAllAlarm);
 
 module.exports = router;
