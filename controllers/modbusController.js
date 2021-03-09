@@ -1,4 +1,5 @@
 const Modbus = require('../models/modbusModel');
+const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.createEntry = catchAsync(async (req, res, next) => {
@@ -14,28 +15,29 @@ exports.createEntry = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllEntrys = catchAsync(async (req, res, next) => {
-  const data = await Modbus.findOne();
-  console.log(data);
+  const data = await Modbus.find();
 
   res.status(200).json({
     status: 'success',
-    message: 'this is the getAllModbus route.',
-    data,
+    results: data.length,
+    data: {
+      data,
+    },
   });
 });
 
 exports.getEntryByAdr = catchAsync(async (req, res, next) => {
-  const adress = req.params.adr;
+  const entry = await Modbus.findOne({ adress: req.params.adr });
 
-  // const entry = await Model.findOne({ adress: req.params.adr });
-  // works only with defined model
+  if (!entry) {
+    return next(new AppError('no document found with that ID', 404));
+  }
 
   res.status(200).json({
     status: 'success',
     message: 'this is the getEntryByAdr route.',
     data: {
-      adress,
-      // entry,
+      entry,
     },
   });
 });
@@ -45,7 +47,6 @@ exports.updateEntyByAdr = (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    message: 'this is the updateEntyByAdr route.',
     data: {
       adress,
     },
