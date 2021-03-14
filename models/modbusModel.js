@@ -5,8 +5,9 @@ const modbusSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'a modbus entry needs a register to adress'],
   },
-  adress: {
-    type: String,
+  address: {
+    type: Number,
+    unique: true,
     required: [true, 'a modbus entry needs an adress'],
   },
   domain: {
@@ -15,16 +16,20 @@ const modbusSchema = new mongoose.Schema({
   },
   name: {
     type: String,
+    unique: true,
     required: [true, 'a modbus entry needs a name'],
   },
   value: {
-    type: String,
+    type: {},
     default: '0',
   },
-  lastUpdatet: {
+  homeEntry: {
+    type: String,
+    default: false,
+  },
+  lastUpdated: {
     type: Date,
     default: Date.now(),
-    select: false,
   },
 });
 
