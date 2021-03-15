@@ -30,7 +30,7 @@ exports.getAllEntrys = catchAsync(async (req, res, next) => {
 exports.getEntryByAdr = catchAsync(async (req, res, next) => {
   let entry = await Modbus.findOne({
     register: req.params.reg,
-    address: req.params.add,
+    address: req.params.adr,
   });
 
   if (!entry) {
@@ -44,7 +44,8 @@ exports.getEntryByAdr = catchAsync(async (req, res, next) => {
     entry = await modbusHandler.getValue(
       entry.address + process.env.MODBUS_OFFSET * 1,
       1,
-      entry
+      entry,
+      next
     );
 
     // save changes to the document
@@ -65,7 +66,7 @@ exports.updateEntyByAdr = catchAsync(async (req, res, next) => {
   const entry = await Modbus.findOneAndUpdate(
     {
       register: req.params.reg,
-      adress: req.params.adr,
+      address: req.params.adr,
     },
     req.body,
     {

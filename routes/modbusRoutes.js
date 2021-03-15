@@ -10,7 +10,7 @@ router
   .post(modbusController.createEntry); // only for testing and dev
 
 router
-  .route('/address/:reg/:add')
+  .route('/address/:reg/:adr')
   .get(modbusController.getEntryByAdr)
   .patch(modbusController.updateEntyByAdr);
 
