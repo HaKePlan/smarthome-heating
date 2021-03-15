@@ -1,13 +1,14 @@
 const ModbusRTU = require('modbus-serial');
 const dotenv = require('dotenv');
+const AppError = require('../utils/appError');
 
 // create an empty modbus client
 const client = new ModbusRTU();
 
 dotenv.config({ path: './config.env' });
 
-exports.getValue = async function (add, len, doc) {
-  // create connection
+exports.getValue = async function (adr, len, doc, next) {
+  // 1) CREATE CONNECTION
   await client.connectTCP(process.env.MODBUS_IP, {
     port: process.env.MODBUS_PORT,
   });
@@ -16,19 +17,46 @@ exports.getValue = async function (add, len, doc) {
   client.setID(1);
   client.setTimeout(1000);
 
-  // run programms
-  const val = await client.readInputRegisters(add, len).catch((err) => {
-    console.log(err.message);
-  });
+  // 2) RUN PROGRAMMS
+  let val;
+  switch (doc.register) {
+    case 0:
+      val = await client.readCoils(adr, len).catch((err) => {
+        console.log(err.message);
+      });
+      break;
+    case 1:
+      val = await client.readDiscreteInputs(adr, len).catch((err) => {
+        console.log(err.message);
+      });
+      break;
+    case 3:
+      val = await client.readInputRegisters(adr, len).catch((err) => {
+        console.log(err.message);
+      });
+      break;
+    case 4:
+      val = await client.readHoldingRegisters(adr, len).catch((err) => {
+        console.log(err.message);
+      });
+      break;
+    default:
+      return next(
+        new AppError(
+          'no valid register found. Please provide a valid register',
+          404
+        )
+      );
+  }
 
-  // Translate the value
-  // console.log(val);
+  // 3) TRANSLATE THE VALUE AND ASSIGN TO DOC
+  console.log(val.data);
   doc.value = val.data[0] / doc.valueFactor;
 
-  // close connection
+  // 4) CLOSE CONNECTION
   client.close();
   // console.log('modbus connection disabled');
 
-  // return output
+  // 5) RETURN MODIFIED DOC
   return doc;
 };
