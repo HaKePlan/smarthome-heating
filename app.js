@@ -15,6 +15,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json({ limit: '10kb' }));
 
 // 2) ROUTES
+// test entry
 app.get('/api/v1/', (req, res) => {
   res.status(200).json({
     status: 'success',
