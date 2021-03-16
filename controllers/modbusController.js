@@ -41,12 +41,7 @@ exports.getEntryByAdr = catchAsync(async (req, res, next) => {
   // if it is the case, update the value and lastUpdated, save it to the document in DB
   if (entry.lastUpdated < Date.now() - process.env.VALUEUPDATE * 1000) {
     // call modbusHandler.getValue with the address from the entry minus the offset stored in config.env
-    entry = await modbusHandler.getValue(
-      entry.address + process.env.MODBUS_OFFSET * 1,
-      1,
-      entry,
-      next
-    );
+    entry = await modbusHandler.getValue(entry, 1, next);
 
     // save changes to the document
     // console.log(entry);

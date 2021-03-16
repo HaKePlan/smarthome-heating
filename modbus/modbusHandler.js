@@ -5,9 +5,11 @@ const AppError = require('../utils/appError');
 // create an empty modbus client
 const client = new ModbusRTU();
 
+// set the defined offset fpr the address translation
 dotenv.config({ path: './config.env' });
 const offset = process.env.MODBUS_OFFSET * 1;
 
+// conect function
 const connectClient = async () => {
   await client.connectTCP(process.env.MODBUS_IP, {
     port: process.env.MODBUS_PORT,
@@ -18,7 +20,7 @@ const connectClient = async () => {
   client.setTimeout(1000);
 };
 
-exports.getValue = async (adr, len, doc, next) => {
+exports.getValue = async (doc, len, next) => {
   // 1) CREATE CONNECTION
   await connectClient();
 
@@ -26,16 +28,16 @@ exports.getValue = async (adr, len, doc, next) => {
   let val;
   switch (doc.register) {
     case 0:
-      val = await client.readCoils(adr, len);
+      val = await client.readCoils(doc.address + offset, len);
       break;
     case 1:
-      val = await client.readDiscreteInputs(adr, len);
+      val = await client.readDiscreteInputs(doc.address + offset, len);
       break;
     case 3:
-      val = await client.readInputRegisters(adr, len);
+      val = await client.readInputRegisters(doc.address + offset, len);
       break;
     case 4:
-      val = await client.readHoldingRegisters(adr, len);
+      val = await client.readHoldingRegisters(doc.address + offset, len);
       break;
     default:
       return next(
