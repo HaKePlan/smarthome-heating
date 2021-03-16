@@ -63,15 +63,27 @@ exports.getEntryByAdr = catchAsync(async (req, res, next) => {
 });
 
 exports.updateEntyByAdr = catchAsync(async (req, res, next) => {
-  if (req.body.value) {
+  // check if value is a number
+  if (typeof req.body.value === 'number') {
     const doc = await Modbus.findOne({
       register: req.params.reg,
       address: req.params.adr,
     });
+
     if (!doc) {
       return next(new AppError('no document found with that address', 404));
     }
+
     req.body.value = await modbusHandler.setValue(doc, req.body.value, next);
+
+    // check if value is set, if true then respnose with error
+  } else if (req.body.value) {
+    return next(
+      new AppError(
+        'value is not a Number. Please provide a value with a number',
+        400
+      )
+    );
   }
 
   const entry = await Modbus.findOneAndUpdate(
