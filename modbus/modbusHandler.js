@@ -85,7 +85,6 @@ exports.setValue = async (doc, val, next) => {
 
   // 4) CONVERT CHECKVALUE TO A SINGLE NUMBER
   checkVal = Number(checkVal.data[0]);
-  console.log(checkVal);
 
   // 5) CHECK IF IT WORKED PROPERLY
   if (!(checkVal === val)) {
