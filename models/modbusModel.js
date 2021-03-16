@@ -7,7 +7,6 @@ const modbusSchema = new mongoose.Schema({
   },
   address: {
     type: Number,
-    unique: true,
     required: [true, 'a modbus entry needs an address'],
   },
   domain: {
@@ -19,7 +18,7 @@ const modbusSchema = new mongoose.Schema({
     // required: [true, 'a modbus entry needs a name'],
   },
   value: {
-    type: {},
+    type: Number,
     default: '0',
   },
   unit: {
@@ -40,6 +39,15 @@ const modbusSchema = new mongoose.Schema({
     default: Date.now(),
   },
 });
+
+// INDEXES
+modbusSchema.index(
+  {
+    address: 1,
+    register: 1,
+  },
+  { unique: true }
+);
 
 // MIDDLEWARE
 modbusSchema.pre('save', function (next) {
