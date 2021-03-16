@@ -63,6 +63,17 @@ exports.getEntryByAdr = catchAsync(async (req, res, next) => {
 });
 
 exports.updateEntyByAdr = catchAsync(async (req, res, next) => {
+  if (req.body.value) {
+    const doc = await Modbus.findOne({
+      register: req.params.reg,
+      address: req.params.adr,
+    });
+    if (!doc) {
+      return next(new AppError('no document found with that address', 404));
+    }
+    req.body.value = await modbusHandler.setValue(doc, req.body.value, next);
+  }
+
   const entry = await Modbus.findOneAndUpdate(
     {
       register: req.params.reg,
@@ -76,7 +87,7 @@ exports.updateEntyByAdr = catchAsync(async (req, res, next) => {
   );
 
   if (!entry) {
-    return next(new AppError('no document found with that ID', 404));
+    return next(new AppError('no document found with that address', 404));
   }
 
   res.status(200).json({
