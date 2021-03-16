@@ -4,3 +4,4 @@ node_modules
 .eslintrc.json
 config.env
 dev-data
+.DS_Store
