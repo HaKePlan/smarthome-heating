@@ -1,3 +1,6 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-await-in-loop */
+
 const ModbusRTU = require('modbus-serial');
 const dotenv = require('dotenv');
 const AppError = require('../utils/appError');
@@ -96,6 +99,57 @@ exports.setValue = async (doc, val, next) => {
     );
   }
 
-  // 6) RETURN THE CHECKVALUE TO SAVE IT LATER
+  // 6) CLCULATE AND RETURN THE CHECKVALUE TO SAVE IT LATER
+  checkVal /= doc.valueFactor;
   return checkVal;
+};
+
+exports.updateValue = async (doc, next) => {
+  // 1) CREATE CONNECTION
+  await connectClient();
+
+  // 2) GET VALUE IN A LOOP
+  const elementArr = [];
+  for (let i = 0; i < doc.length; i++) {
+    const element = doc[i];
+
+    let val;
+    switch (element.register) {
+      case 0:
+        val = await client.readCoils(element.address + offset, 1);
+        break;
+      case 1:
+        val = await client.readDiscreteInputs(element.address + offset, 1);
+        break;
+      case 3:
+        val = await client.readInputRegisters(element.address + offset, 1);
+        break;
+      case 4:
+        val = await client.readHoldingRegisters(element.address + offset, 1);
+        break;
+      default:
+        return next(
+          new AppError(
+            'no valid register found. Please provide a valid register',
+            404
+          )
+        );
+    }
+    // 3) CALCULATE EACH VALUE AND PUSH IN AN ARRAY
+    element.value = val.data[0] / element.valueFactor;
+    elementArr.push(element);
+    // console.log(
+    //   'value of',
+    //   element.register,
+    //   element.address,
+    //   'is : ',
+    //   element.value
+    // );
+  }
+
+  // 4) CLOSE CONNECTION
+  client.close();
+
+  // 5) RETURN UPDATET ELEMENTS
+  return elementArr;
 };
