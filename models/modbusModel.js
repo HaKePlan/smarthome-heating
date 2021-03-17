@@ -31,8 +31,12 @@ const modbusSchema = new mongoose.Schema({
     default: 1,
   },
   homeEntry: {
-    type: String,
+    type: Boolean,
     default: false,
+  },
+  interval: {
+    type: Boolean,
+    default: true,
   },
   lastUpdated: {
     type: Date,
