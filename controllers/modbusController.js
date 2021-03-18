@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-await-in-loop */
 const Modbus = require('../models/modbusModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
@@ -10,49 +12,81 @@ exports.createEntry = catchAsync(async (req, res, next) => {
     status: 'success',
     message: 'this route is only for testing and development',
     data: {
-      data: doc,
+      doc,
     },
   });
 });
 
 exports.getAllEntrys = catchAsync(async (req, res, next) => {
-  const data = await Modbus.find();
+  const doc = await Modbus.find();
 
   res.status(200).json({
     status: 'success',
-    results: data.length,
+    results: doc.length,
     data: {
-      data,
+      doc,
+    },
+  });
+});
+
+exports.getAllEntrysUpdatet = catchAsync(async (req, res, next) => {
+  // 1) GET ALL DOCUMENTS IN THE DB
+  const data = await Modbus.find();
+
+  // 2) CALL THE UPDATE FUNCTION
+  const doc = await modbusHandler.updateValue(data, next);
+  if (!doc) {
+    return;
+    // this return statement is realy neccessari! without this, the next functions in the script will be called. So we need to return at this piont. This expression is only true, wehn there is a nonvalid register in data (error handling in updateValue switch.default statement)
+  }
+
+  // 3) SAVE ALL NEW VALUES IN DB BY LOOP (update lastUpdatet)
+  const newDoc = [];
+  for (let i = 0; i < doc.length; i++) {
+    const element = doc[i];
+    element.lastUpdated = Date.now();
+    const newElement = await Modbus.findByIdAndUpdate(element.id, element, {
+      new: true,
+    });
+    newDoc.push(newElement);
+  }
+
+  // 4) RESPONSE ALL ENTRYS
+  res.status(200).json({
+    status: 'success',
+    results: doc.length,
+    data: {
+      newDoc,
     },
   });
 });
 
 exports.getEntryByAdr = catchAsync(async (req, res, next) => {
-  let entry = await Modbus.findOne({
+  let doc = await Modbus.findOne({
     register: req.params.reg,
     address: req.params.adr,
   });
 
-  if (!entry) {
+  if (!doc) {
     return next(new AppError('no document found with that adrress', 404));
   }
 
-  // Check if lastUpdated of the entry is more than 30 seconds in the past
+  // Check if lastUpdated of the doc is more than 30 seconds in the past
   // if it is the case, update the value and lastUpdated, save it to the document in DB
-  if (entry.lastUpdated < Date.now() - process.env.VALUEUPDATE * 1000) {
-    // call modbusHandler.getValue with the address from the entry minus the offset stored in config.env
-    entry = await modbusHandler.getValue(entry, 1, next);
+  if (doc.lastUpdated < Date.now() - process.env.VALUEUPDATE * 1000) {
+    // call modbusHandler.getValue with the address from the doc minus the offset stored in config.env
+    doc = await modbusHandler.getValue(doc, 1, next);
 
     // save changes to the document
-    // console.log(entry);
-    await entry.save();
+    // console.log(doc);
+    await doc.save();
   }
 
   res.status(200).json({
     status: 'success',
     message: 'this is the getEntryByAdr route.',
     data: {
-      entry,
+      doc,
     },
   });
 });
@@ -106,13 +140,13 @@ exports.updateEntyByAdr = catchAsync(async (req, res, next) => {
 });
 
 exports.getHomeEntrys = catchAsync(async (req, res, next) => {
-  const data = await Modbus.find({ homeEntry: true });
+  const doc = await Modbus.find({ homeEntry: true });
 
   res.status(200).json({
     status: 'success',
-    results: data.length,
+    results: doc.length,
     data: {
-      data,
+      doc,
     },
   });
 });
