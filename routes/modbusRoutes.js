@@ -14,6 +14,8 @@ router
   .get(modbusController.getEntryByAdr)
   .patch(modbusController.updateEntyByAdr);
 
+router.route('/getUpdate').get(modbusController.getAllEntrysUpdatet);
+router.route('/interval').get(modbusController.getAllEntrys);
 router.route('/home').get(modbusController.getHomeEntrys);
 router.route('/alarm').get(modbusController.getAllAlarm);
 
