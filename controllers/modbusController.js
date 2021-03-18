@@ -4,6 +4,7 @@ const Modbus = require('../models/modbusModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const modbusHandler = require('../modbus/modbusHandler');
+const factory = require('./handlerFactory');
 
 exports.createEntry = catchAsync(async (req, res, next) => {
   const doc = await Modbus.create(req.body);
@@ -25,38 +26,6 @@ exports.getAllEntrys = catchAsync(async (req, res, next) => {
     results: doc.length,
     data: {
       doc,
-    },
-  });
-});
-
-exports.getAllEntrysUpdatet = catchAsync(async (req, res, next) => {
-  // 1) GET ALL DOCUMENTS IN THE DB
-  const data = await Modbus.find();
-
-  // 2) CALL THE UPDATE FUNCTION
-  const doc = await modbusHandler.updateValue(data, next);
-  if (!doc) {
-    return;
-    // this return statement is realy neccessari! without this, the next functions in the script will be called. So we need to return at this piont. This expression is only true, wehn there is a nonvalid register in data (error handling in updateValue switch.default statement)
-  }
-
-  // 3) SAVE ALL NEW VALUES IN DB BY LOOP (update lastUpdatet)
-  const newDoc = [];
-  for (let i = 0; i < doc.length; i++) {
-    const element = doc[i];
-    element.lastUpdated = Date.now();
-    const newElement = await Modbus.findByIdAndUpdate(element.id, element, {
-      new: true,
-    });
-    newDoc.push(newElement);
-  }
-
-  // 4) RESPONSE ALL ENTRYS
-  res.status(200).json({
-    status: 'success',
-    results: doc.length,
-    data: {
-      newDoc,
     },
   });
 });
@@ -158,3 +127,6 @@ exports.getAllAlarm = (req, res, next) => {
     message: 'this is the getAllAlarm route.',
   });
 };
+
+exports.getAllEntrysUpdatet = factory.updateAll(Modbus);
+exports.updateInterval = factory.updateAll(Modbus, { interval: true });
