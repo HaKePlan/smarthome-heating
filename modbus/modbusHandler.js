@@ -4,6 +4,7 @@
 const ModbusRTU = require('modbus-serial');
 const dotenv = require('dotenv');
 const AppError = require('../utils/appError');
+const catchAsync = require('../utils/catchAsync');
 
 // create an empty modbus client
 const client = new ModbusRTU();
@@ -61,7 +62,7 @@ exports.getValue = async (doc, len, next) => {
   return doc;
 };
 
-exports.setValue = async (doc, val, next) => {
+exports.setValue = catchAsync(async (doc, val, next) => {
   // 1) CREATE CONNECTION
   await connectClient();
 
@@ -77,9 +78,13 @@ exports.setValue = async (doc, val, next) => {
       checkVal = await client.readHoldingRegisters(doc.address + offset, 1);
       break;
     default:
+      // return ['no valid register found. Please provide a valid register', 404];
+      // throw new Error(
+      //   'no valid register found. Please provide a valid register'
+      // );
       return next(
         new AppError(
-          'no valid writeable register found. Pleas provide a valid writabel register',
+          'no valid writeable register found. asdfadfs Pleas provide a valid writabel register',
           404
         )
       );
@@ -102,7 +107,7 @@ exports.setValue = async (doc, val, next) => {
   // 6) CLCULATE AND RETURN THE CHECKVALUE TO SAVE IT LATER
   checkVal /= doc.valueFactor;
   return checkVal;
-};
+});
 
 exports.updateValue = async (doc, next) => {
   // 1) CREATE CONNECTION
@@ -130,7 +135,7 @@ exports.updateValue = async (doc, next) => {
       default:
         return next(
           new AppError(
-            'no valid register found. Please provide a valid register',
+            `register ${element.register} is not a valid register.`,
             404
           )
         );

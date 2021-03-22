@@ -11,7 +11,6 @@ exports.createEntry = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    message: 'this route is only for testing and development',
     data: {
       doc,
     },
@@ -53,7 +52,6 @@ exports.getEntryByAdr = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    message: 'this is the getEntryByAdr route.',
     data: {
       doc,
     },
@@ -69,10 +67,18 @@ exports.updateEntyByAdr = catchAsync(async (req, res, next) => {
     });
 
     if (!doc) {
-      return next(new AppError('no document found with that address', 404));
+      return next(new AppError('no document found with this address', 404));
     }
 
-    req.body.value = await modbusHandler.setValue(doc, req.body.value, next);
+    const val = await modbusHandler.setValue(doc, req.body.value, next);
+    // .catch((err) => {
+    //   console.log('here it is');
+    //   return next(new AppError(err.message, 404));
+    // });
+    // if (!(typeof val === 'number')) {
+    //   return next(new AppError(val[0], val[1]));
+    // }
+    req.body.value = val;
 
     // check if value is set, if true then respnose with error
   } else if (req.body.value) {
@@ -97,7 +103,7 @@ exports.updateEntyByAdr = catchAsync(async (req, res, next) => {
   );
 
   if (!entry) {
-    return next(new AppError('no document found with that address', 404));
+    return next(new AppError('no document found with this address', 404));
   }
 
   res.status(200).json({
@@ -120,13 +126,6 @@ exports.getHomeEntrys = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllAlarm = (req, res, next) => {
-  // How to deal with this??
-  res.status(200).json({
-    status: 'success',
-    message: 'this is the getAllAlarm route.',
-  });
-};
-
+exports.getAllAlarm = factory.updateAll(Modbus, { domain: 'Alarm' });
 exports.getAllEntrysUpdatet = factory.updateAll(Modbus);
 exports.updateInterval = factory.updateAll(Modbus, { interval: true });

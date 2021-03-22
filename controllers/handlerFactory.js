@@ -20,10 +20,9 @@ exports.updateAll = (Model, filter) =>
     const newDoc = [];
     for (let i = 0; i < doc.length; i++) {
       const element = doc[i];
-      element.lastUpdated = Date.now();
       const newElement = await Model.findByIdAndUpdate(
         element.id,
-        { value: element.value, lastUpdated: element.lastUpdated },
+        { value: element.value },
         {
           new: true,
         }

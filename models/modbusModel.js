@@ -59,6 +59,11 @@ modbusSchema.pre('save', function (next) {
   next();
 });
 
+modbusSchema.pre('findOneAndUpdate', function (next) {
+  this.set({ lastUpdated: Date.now() });
+  next();
+});
+
 // third parameter defines the name of the collection, if this parameter is not set, mongoose will use the plural lowercase version of the schema name.
 const Modbus = mongoose.model('Modbus', modbusSchema, 'modbus');
 
