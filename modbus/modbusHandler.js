@@ -43,12 +43,7 @@ exports.getValue = async (doc, len, next) => {
       val = await client.readHoldingRegisters(doc.address + offset, len);
       break;
     default:
-      return next(
-        new AppError(
-          'no valid register found. Please provide a valid register',
-          404
-        )
-      );
+      return ['no valid register found. Please provide a valid register', 404];
   }
 
   // 3) CLOSE CONNECTION

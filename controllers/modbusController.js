@@ -45,6 +45,10 @@ exports.getEntryByAdr = catchAsync(async (req, res, next) => {
     // call modbusHandler.getValue with the address from the doc minus the offset stored in config.env
     doc = await modbusHandler.getValue(doc, 1, next);
 
+    if (Array.isArray(doc)) {
+      return next(new AppError(doc[0], doc[1]));
+    }
+
     // save changes to the document
     // console.log(doc);
     await doc.save();
