@@ -71,13 +71,11 @@ exports.updateEntyByAdr = catchAsync(async (req, res, next) => {
     }
 
     const val = await modbusHandler.setValue(doc, req.body.value, next);
-    // .catch((err) => {
-    //   console.log('here it is');
-    //   return next(new AppError(err.message, 404));
-    // });
-    // if (!(typeof val === 'number')) {
-    //   return next(new AppError(val[0], val[1]));
-    // }
+
+    if (!(typeof val === 'boolean' && typeof val === 'number')) {
+      return next(new AppError(val[0], val[1]));
+    }
+
     req.body.value = val;
 
     // check if value is set, if true then respnose with error
