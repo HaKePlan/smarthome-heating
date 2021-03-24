@@ -1,8 +1,107 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-plusplus */
 const catchAsync = require('../utils/catchAsync');
-// const AppError = require('../utils/appError');
+const AppError = require('../utils/appError');
 const modbusHandler = require('../modbus/modbusHandler');
+
+exports.getEntry = (Model) =>
+  catchAsync(async (req, res, next) => {
+    // 1) CHECK IF REQ IS FROM MODBUS OR CONFIG
+    let doc;
+    if (req.baseUrl === '/api/v1/modbus') {
+      doc = await Model.findById(req.params.id);
+    } else {
+      doc = await Model.findOne({
+        register: req.params.reg,
+        address: req.params.adr,
+      });
+    }
+
+    // 2) CHECK IF THERE IS A DOC
+    if (!doc) {
+      return next(new AppError('no document found with that adrress', 404));
+    }
+
+    // 3) CHECK IF NEW UPDATE IS NEEDED
+    // Check if lastUpdated of the doc is more than 30 seconds in the past
+    // if it is the case, update the value and lastUpdated, save it to the document in DB
+    if (doc.lastUpdated < Date.now() - process.env.VALUEUPDATE * 1000) {
+      // call modbusHandler.getValue with the address from the doc minus the offset stored in config.env
+      doc = await modbusHandler.getValue(doc, 1, next);
+
+      if (Array.isArray(doc)) {
+        return next(new AppError(doc[0], doc[1]));
+      }
+
+      // 4) SAVE UPDATE TO DOC
+      await doc.save();
+    }
+
+    // 5) RESPONSE
+    res.status(200).json({
+      status: 'success',
+      data: {
+        doc,
+      },
+    });
+  });
+
+exports.updateOne = (Model) =>
+  catchAsync(async (req, res, next) => {
+    // 1) GET DOC FROM REG AND ADR
+    let doc;
+    if (req.baseUrl === '/api/v1/modbus') {
+      doc = await Model.findById(req.params.id);
+    } else {
+      doc = await Model.findOne({
+        register: req.params.reg,
+        address: req.params.adr,
+      });
+    }
+
+    // 2) CHECK IF DOC EXISTS
+    if (!doc) {
+      return next(new AppError('no document found with this address', 404));
+    }
+
+    // 3) CHECK IF A VALUE IS SET AND IS A NUMBER, IF TRUE: UPDATE VALUE
+    if (typeof req.body.value === 'number') {
+      const val = await modbusHandler.setValue(doc, req.body.value, next);
+      if (!(typeof val === 'number')) {
+        return next(new AppError(val[0], val[1]));
+      }
+      req.body.value = val;
+    } else if (req.body.value || req.baseUrl === '/api/v1/modbus') {
+      return next(
+        new AppError(
+          'value is not a Number. Please provide a value with a number',
+          400
+        )
+      );
+    }
+
+    // 4) SET UPDATE BASED ON ROUTE / BASEURL
+    let update;
+    if (req.baseUrl === '/api/v1/modbus') {
+      update = { value: req.body.value };
+    } else {
+      update = req.body;
+    }
+
+    // 5) SAVE UPDATET DOC
+    const entry = await Model.findByIdAndUpdate(doc.id, update, {
+      runValidators: true,
+      new: true,
+    });
+
+    // 6) RESPONSE UPDATET DOC
+    res.status(200).json({
+      status: 'success',
+      data: {
+        entry,
+      },
+    });
+  });
 
 exports.updateAll = (Model, filter) =>
   catchAsync(async (req, res, next) => {

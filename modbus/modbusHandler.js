@@ -83,10 +83,7 @@ exports.setValue = async (doc, val, next) => {
 
   // 5) CHECK IF IT WORKED PROPERLY
   if (!(checkVal === val)) {
-    return next(
-      new AppError('value not properly set, something went bad'),
-      500
-    );
+    return ['value not properly set, something went bad', 500];
   }
 
   // 6) CLCULATE AND RETURN THE CHECKVALUE TO SAVE IT LATER

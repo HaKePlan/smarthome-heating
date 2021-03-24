@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const modbusRoutes = require('./routes/modbusRoutes');
+const configRoutes = require('./routes/configRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
@@ -24,6 +25,7 @@ app.get('/api/v1/', (req, res) => {
 });
 
 app.use('/api/v1/modbus', modbusRoutes);
+app.use('/api/v1/config', configRoutes);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Cant find ${req.originalUrl} on this server!`, 404));
