@@ -2,7 +2,6 @@ const Modbus = require('../models/modbusModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
-const modbusHandler = require('../modbus/modbusHandler');
 
 exports.createEntry = catchAsync(async (req, res, next) => {
   const doc = await Modbus.create(req.body);
