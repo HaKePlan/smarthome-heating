@@ -98,7 +98,7 @@ exports.updateOne = (Model) =>
     res.status(200).json({
       status: 'success',
       data: {
-        entry,
+        doc: entry,
       },
     });
   });
@@ -134,7 +134,7 @@ exports.updateAll = (Model, filter) =>
       status: 'success',
       results: doc.length,
       data: {
-        newDoc,
+        doc: newDoc,
       },
     });
   });

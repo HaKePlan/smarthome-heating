@@ -53,7 +53,7 @@ exports.getDomainEntrys = catchAsync(async (req, res, next) => {
     status: 'success',
     results: doc.length,
     data: {
-      newDoc,
+      doc: newDoc,
     },
   });
 });
