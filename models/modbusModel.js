@@ -30,6 +30,10 @@ const modbusSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
+  signedValue: {
+    type: Object,
+    default: { i: 'unsigned' },
+  },
   homeEntry: {
     type: Boolean,
     default: false,
