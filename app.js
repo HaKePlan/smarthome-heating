@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const modbusRoutes = require('./routes/modbusRoutes');
 const configRoutes = require('./routes/configRoutes');
+const userRoutes = require('./routes/userRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
@@ -23,6 +24,8 @@ app.get('/api/v1/', (req, res) => {
     message: 'this app is gona be the shit!!!',
   });
 });
+
+app.use('/api/v1/user', userRoutes);
 
 app.use('/api/v1/modbus', modbusRoutes);
 app.use('/api/v1/config', configRoutes);
