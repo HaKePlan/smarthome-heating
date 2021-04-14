@@ -48,7 +48,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // 1) check if uesername and password is set
   if (!name || !password)
-    return next(new AppError('pleas provide a username and a password', 400));
+    return next(new AppError('please provide a username and a password', 400));
 
   // 2) get user from db and check if username and password is correct
   const user = await User.findOne({ name }).select('+password');
