@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const modbusRoutes = require('./routes/modbusRoutes');
 const configRoutes = require('./routes/configRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -26,6 +27,12 @@ app.get('/api/v1/', (req, res) => {
     status: 'success',
     message: 'this app is gona be the shit!!!',
   });
+});
+
+// test Middleward
+app.use((req, res, next) => {
+  req.requestetTime = new Date().toISOString();
+  next();
 });
 
 app.use('/api/v1/user', userRoutes);
