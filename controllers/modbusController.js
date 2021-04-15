@@ -12,9 +12,7 @@ exports.getAllEntrys = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     results: doc.length,
-    data: {
-      doc,
-    },
+    data: doc,
   });
 });
 
@@ -52,9 +50,7 @@ exports.getDomainEntrys = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     results: doc.length,
-    data: {
-      doc: newDoc,
-    },
+    data: newDoc,
   });
 });
 
