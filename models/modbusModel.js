@@ -15,24 +15,35 @@ const modbusSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    // required: [true, 'a modbus entry needs a name'],
+    required: [true, 'a modbus entry needs a name'],
   },
   value: {
     type: Number,
-    default: '0',
+    default: 0,
   },
   unit: {
     type: String,
-    default: 'Number',
-    // required: [true, 'a modbus entry needs an unit'],
+    default: 'number',
+    enum: ['°C', '%', 'number', 'signedValue'],
   },
   valueFactor: {
     type: Number,
     default: 1,
   },
-  signedValue: {
-    type: Object,
-    default: { i: 'unsigned' },
+  valueAssignation: {
+    assignment: {
+      type: Object,
+      default: undefined,
+    },
+    definition: {
+      type: String,
+      enum: ['bitwise', 'numeric', 'boolean'],
+      default: undefined,
+    },
+    bits: {
+      type: Array,
+      default: undefined,
+    },
   },
   homeEntry: {
     type: Boolean,
