@@ -11,6 +11,14 @@ const modbusSchema = new mongoose.Schema({
   },
   domain: {
     type: String,
+    enum: [
+      'alarme',
+      'heizgruppe_1',
+      'heizgruppe_2',
+      'brauchwasser',
+      'allgemein',
+      'vorregler',
+    ],
     // required: [true, 'a modbus entry needs a domain theme'],
   },
   name: {
