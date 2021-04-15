@@ -128,12 +128,7 @@ exports.updateValue = async (doc, next) => {
         val = await client.readHoldingRegisters(element.address + offset, 1);
         break;
       default:
-        return next(
-          new AppError(
-            `register ${element.register} is not a valid register.`,
-            404
-          )
-        );
+        return [`register ${element.register} is not a valid register.`, 404];
     }
     // 3) CALCULATE EACH VALUE AND PUSH IN AN ARRAY
     element.value = val.data[0] / element.valueFactor;
