@@ -4,6 +4,7 @@
 const ModbusRTU = require('modbus-serial');
 const dotenv = require('dotenv');
 const AppError = require('../utils/appError');
+const convertDecimalToBinary = require('../utils/binaryConverter');
 
 // create an empty modbus client
 const client = new ModbusRTU();
@@ -52,7 +53,13 @@ exports.getValue = async (doc, len, next) => {
   // 4) CALCULATE THE VALUE WITH THE FACTOR
   doc.value = val.data[0] / doc.valueFactor;
 
-  // 5) RETURN MODIFIED DOC
+  // 5) IF UNIT === OBJECT, STORE VALUE IN BINARY TO signedValue.bits
+  doc.valueAssignation.bits = convertDecimalToBinary(
+    doc.valueAssignation.definition,
+    val.data[0]
+  );
+
+  // 6) RETURN MODIFIED DOC
   return doc;
 };
 
@@ -86,9 +93,15 @@ exports.setValue = async (doc, val, next) => {
     return ['value not properly set, something went bad', 500];
   }
 
-  // 6) CLCULATE AND RETURN THE CHECKVALUE TO SAVE IT LATER
+  // 6) IF UNIT === OBJECT, STORE VALUE IN BINARY TO signedValue.bits
+  const bits = convertDecimalToBinary(
+    doc.valueAssignation.definition,
+    checkVal
+  );
+
+  // 7) CLCULATE AND RETURN THE CHECKVALUE TO SAVE IT LATER
   checkVal /= doc.valueFactor;
-  return checkVal;
+  return [checkVal, bits];
 };
 
 exports.updateValue = async (doc, next) => {
@@ -124,6 +137,14 @@ exports.updateValue = async (doc, next) => {
     }
     // 3) CALCULATE EACH VALUE AND PUSH IN AN ARRAY
     element.value = val.data[0] / element.valueFactor;
+
+    // 4) GET BITS OF EACH ELEMENT IF UNIT === OBJECT, STORE VALUE IN BINARY TO signedValue.bits
+    element.valueAssignation.bits = convertDecimalToBinary(
+      element.valueAssignation.definition,
+      val.data[0]
+    );
+
+    // 5) PUSH ELEMENT (DOC) IN AN ARRAY
     elementArr.push(element);
     // console.log(
     //   'value of',
