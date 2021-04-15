@@ -5,3 +5,4 @@ node_modules
 config.env
 dev-data
 .DS_Store
+modbus/try.js

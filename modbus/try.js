@@ -1,6 +1,3 @@
-const ModbusHandler = require('./modbusHandler');
+const convertDecimalToBinary = require('../utils/binaryConverter');
 
-(async () => {
-  const d = await ModbusHandler.getValue(49, 1);
-  console.log('the value of a is: ', d);
-})();
+console.log(convertDecimalToBinary(250));
