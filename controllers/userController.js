@@ -38,7 +38,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    user: updateUser,
+    data: updateUser,
   });
 });
 
@@ -61,9 +61,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    data: {
-      user: newUser,
-    },
+    data: newUser,
   });
 });
 
@@ -74,9 +72,7 @@ exports.getUser = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    data: {
-      user,
-    },
+    data: user,
   });
 });
 
@@ -99,9 +95,7 @@ exports.getAllUser = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     results: user.length,
-    data: {
-      user,
-    },
+    data: user,
   });
 });
 
