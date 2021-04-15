@@ -27,36 +27,63 @@ exports.getDomainEntrys = catchAsync(async (req, res, next) => {
 
   // 2) CALL THE UPDATE FUNCTION
   const doc = await modbusHandler.updateValue(data, next);
-  if (!doc) {
-    return;
-    // this return statement is realy neccessari! without this, the next functions in the script will be called. So we need to return at this piont. This expression is only true, wehn there is a nonvalid register in data (error handling in updateValue switch.default statement)
+
+  if (typeof doc[0] === 'string') {
+    return next(new AppError(doc[0], doc[1]));
   }
 
-  // 3) SAVE ALL NEW VALUES IN DB BY LOOP (update lastUpdatet)
-  const newDoc = [];
+  // 3) SAVE ALL NEW VALUES IN DB BY LOOP
   for (let i = 0; i < doc.length; i++) {
     const element = doc[i];
-    const newElement = await Modbus.findByIdAndUpdate(
-      element.id,
-      { value: element.value },
-      {
-        new: true,
-      }
-    );
-    newDoc.push(newElement);
+    element.save();
   }
 
   // 4) RESPONSE ALL ENTRYS
   res.status(200).json({
     status: 'success',
     results: doc.length,
-    data: newDoc,
+    data: doc,
+  });
+});
+
+exports.getAllActiveAlarm = catchAsync(async (req, res, next) => {
+  // 1) GET ALL DOCUMENTS IN THE DB
+  const data = await Modbus.find({ domain: 'alarme' });
+
+  // 2) CHECK IF PARAM DOMAIN IS EXISTING
+  if (data.length === 0) {
+    return next(new AppError('no documents found with this domain', 404));
+  }
+
+  // 2) CALL THE UPDATE FUNCTION
+  const doc = await modbusHandler.updateValue(data, next);
+
+  if (typeof doc[0] === 'string') {
+    return next(new AppError(doc[0], doc[1]));
+  }
+
+  // 3) SAVE ALL NEW VALUES IN DB BY LOOP
+  for (let i = 0; i < doc.length; i++) {
+    const element = doc[i];
+    element.save();
+  }
+
+  // 4) FILTER OUT ACTIVE ALARMS
+  const active = [];
+  doc.forEach((e) => {
+    if (e.value === 1) active.push(e);
+  });
+
+  // 4) RESPONSE ALL ENTRYS
+  res.status(200).json({
+    status: 'success',
+    results: active.length,
+    data: active,
   });
 });
 
 exports.getEntryByID = factory.getEntry(Modbus);
 exports.updateEntryByID = factory.updateOne(Modbus);
 exports.getHomeEntrys = factory.updateAll(Modbus, { homeEntry: true });
-exports.getAllAlarm = factory.updateAll(Modbus, { domain: 'Alarm' });
 exports.getAllEntrysUpdatet = factory.updateAll(Modbus);
 exports.updateInterval = factory.updateAll(Modbus, { interval: true });
