@@ -40,9 +40,7 @@ exports.getEntry = (Model) =>
     // 5) RESPONSE
     res.status(200).json({
       status: 'success',
-      data: {
-        doc,
-      },
+      data: doc,
     });
   });
 
@@ -66,11 +64,16 @@ exports.updateOne = (Model) =>
 
     // 3) CHECK IF A VALUE IS SET AND IS A NUMBER, IF TRUE: UPDATE VALUE
     if (typeof req.body.value === 'number') {
-      const val = await modbusHandler.setValue(doc, req.body.value, next);
-      if (!(typeof val === 'number')) {
-        return next(new AppError(val[0], val[1]));
+      const check = await modbusHandler.setValue(doc, req.body.value, next);
+
+      if (!(typeof check[0] === 'number')) {
+        return next(new AppError(check[0], check[1]));
       }
-      req.body.value = val;
+
+      // assign value and bit to doc and save doc
+      doc.value = check[0];
+      doc.valueAssignation.bits = check[1];
+      doc.save();
     } else if (req.body.value || req.baseUrl === '/api/v1/modbus') {
       return next(
         new AppError(
@@ -80,26 +83,25 @@ exports.updateOne = (Model) =>
       );
     }
 
-    // 4) SET UPDATE BASED ON ROUTE / BASEURL
-    let update;
-    if (req.baseUrl === '/api/v1/modbus') {
-      update = { value: req.body.value };
-    } else {
-      update = req.body;
-    }
+    // 4) UPDATET DOC IF FROM CONFIG ROUTE
+    let entry;
+    if (req.baseUrl === '/api/v1/config') {
+      // sanitisize req.body.value
+      req.body.value = undefined;
 
-    // 5) SAVE UPDATET DOC
-    const entry = await Model.findByIdAndUpdate(doc.id, update, {
-      runValidators: true,
-      new: true,
-    });
+      // update the rest
+      entry = await Model.findByIdAndUpdate(doc.id, req.body, {
+        runValidators: true,
+        new: true,
+      });
+    } else {
+      entry = doc;
+    }
 
     // 6) RESPONSE UPDATET DOC
     res.status(200).json({
       status: 'success',
-      data: {
-        doc: entry,
-      },
+      data: entry,
     });
   });
 
@@ -116,25 +118,17 @@ exports.updateAll = (Model, filter) =>
     }
 
     // 3) SAVE ALL NEW VALUES IN DB BY LOOP (update lastUpdatet)
-    const newDoc = [];
+    // const newDoc = [];
     for (let i = 0; i < doc.length; i++) {
       const element = doc[i];
-      const newElement = await Model.findByIdAndUpdate(
-        element.id,
-        { value: element.value },
-        {
-          new: true,
-        }
-      );
-      newDoc.push(newElement);
+      await element.save();
+      // newDoc.push(element);
     }
 
     // 4) RESPONSE ALL ENTRYS
     res.status(200).json({
       status: 'success',
       results: doc.length,
-      data: {
-        doc: newDoc,
-      },
+      data: doc,
     });
   });
