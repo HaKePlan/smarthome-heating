@@ -3,7 +3,6 @@
 
 const ModbusRTU = require('modbus-serial');
 const dotenv = require('dotenv');
-const AppError = require('../utils/appError');
 const convertDecimalToBinary = require('../utils/binaryConverter');
 
 // create an empty modbus client
