@@ -19,7 +19,7 @@ const modbusSchema = new mongoose.Schema({
       'allgemein',
       'vorregler',
     ],
-    // required: [true, 'a modbus entry needs a domain theme'],
+    required: [true, 'a modbus entry needs a domain theme'],
   },
   name: {
     type: String,
