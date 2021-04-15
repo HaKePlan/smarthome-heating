@@ -15,6 +15,6 @@ router.route('/domain/:domain').get(modbusController.getDomainEntrys);
 router.route('/getUpdate').get(modbusController.getAllEntrysUpdatet);
 router.route('/interval').get(modbusController.updateInterval);
 router.route('/home').get(modbusController.getHomeEntrys);
-router.route('/alarm').get(modbusController.getAllAlarm);
+router.route('/alarm').get(modbusController.getAllActiveAlarm);
 
 module.exports = router;
