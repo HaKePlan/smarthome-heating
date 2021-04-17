@@ -19,7 +19,7 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true, //(node:5460) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
   })
-  .then(() => console.log('DB connection seuccessful'));
+  .then(() => console.log('DB connection successful'));
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
