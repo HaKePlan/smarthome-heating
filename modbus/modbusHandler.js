@@ -29,21 +29,32 @@ exports.getValue = async (doc, len, next) => {
 
   // 2) RUN PROGRAMMS
   let val;
-  switch (doc.register) {
-    case 0:
-      val = await client.readCoils(doc.address + offset, len);
-      break;
-    case 1:
-      val = await client.readDiscreteInputs(doc.address + offset, len);
-      break;
-    case 3:
-      val = await client.readInputRegisters(doc.address + offset, len);
-      break;
-    case 4:
-      val = await client.readHoldingRegisters(doc.address + offset, len);
-      break;
-    default:
-      return ['no valid register found. Please provide a valid register', 404];
+  let x = 0;
+  while (!val && x < 2) {
+    try {
+      switch (doc.register) {
+        case 0:
+          val = await client.readCoils(doc.address + offset, len);
+          break;
+        case 1:
+          val = await client.readDiscreteInputs(doc.address + offset, len);
+          break;
+        case 3:
+          val = await client.readInputRegisters(doc.address + offset, len);
+          break;
+        case 4:
+          val = await client.readHoldingRegisters(doc.address + offset, len);
+          break;
+        default:
+          return [
+            'no valid register found. Please provide a valid register',
+            404,
+          ];
+      }
+      x++;
+    } catch (err) {
+      await connectClient();
+    }
   }
 
   // 3) CLOSE CONNECTION
@@ -68,17 +79,28 @@ exports.setValue = async (doc, val, next) => {
 
   // 2) RUN PROGRAMMS
   let checkVal;
-  switch (doc.register) {
-    case 0:
-      await client.writeCoil(doc.address + offset, !!val);
-      checkVal = await client.readCoils(doc.address + offset, 1);
-      break;
-    case 4:
-      await client.writeRegister(doc.address + offset, val);
-      checkVal = await client.readHoldingRegisters(doc.address + offset, 1);
-      break;
-    default:
-      return ['no valid register found. Please provide a valid register', 404];
+  let x = 0;
+  while (!checkVal && x < 2) {
+    try {
+      switch (doc.register) {
+        case 0:
+          await client.writeCoil(doc.address + offset, !!val);
+          checkVal = await client.readCoils(doc.address + offset, 1);
+          break;
+        case 4:
+          await client.writeRegister(doc.address + offset, val);
+          checkVal = await client.readHoldingRegisters(doc.address + offset, 1);
+          break;
+        default:
+          return [
+            'no valid register found. Please provide a valid register',
+            404,
+          ];
+      }
+      x++;
+    } catch (error) {
+      await connectClient();
+    }
   }
 
   // 3) CLOSE CONNECTION
@@ -113,21 +135,35 @@ exports.updateValue = async (doc, next) => {
     const element = doc[i];
 
     let val;
-    switch (element.register) {
-      case 0:
-        val = await client.readCoils(element.address + offset, 1);
-        break;
-      case 1:
-        val = await client.readDiscreteInputs(element.address + offset, 1);
-        break;
-      case 3:
-        val = await client.readInputRegisters(element.address + offset, 1);
-        break;
-      case 4:
-        val = await client.readHoldingRegisters(element.address + offset, 1);
-        break;
-      default:
-        return [`register ${element.register} is not a valid register.`, 404];
+    let x = 0;
+    while (!val && x < 2) {
+      try {
+        switch (element.register) {
+          case 0:
+            val = await client.readCoils(element.address + offset, 1);
+            break;
+          case 1:
+            val = await client.readDiscreteInputs(element.address + offset, 1);
+            break;
+          case 3:
+            val = await client.readInputRegisters(element.address + offset, 1);
+            break;
+          case 4:
+            val = await client.readHoldingRegisters(
+              element.address + offset,
+              1
+            );
+            break;
+          default:
+            return [
+              `register ${element.register} is not a valid register.`,
+              404,
+            ];
+        }
+        x++;
+      } catch (err) {
+        await connectClient();
+      }
     }
     // 3) CALCULATE EACH VALUE AND PUSH IN AN ARRAY
     element.value = val.data[0] / element.valueFactor;
