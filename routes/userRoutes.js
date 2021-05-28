@@ -12,7 +12,7 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 
 // USERROUTES
 // protect all routes after this line
-router.use(authController.protect);
+// router.use(authController.protect);
 router
   .route('/me')
   .get(userController.getMe, userController.getUser)
@@ -21,7 +21,7 @@ router.patch('/updateMyPassword', authController.updatePassword);
 
 // ADMINROUTES
 // restrict to admin, all routes after
-router.use(authController.restrictTo('admin', 'sudoer'));
+// router.use(authController.restrictTo('admin', 'sudoer'));
 router
   .route('/')
   .get(userController.getAllUser)
