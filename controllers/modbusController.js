@@ -3,7 +3,7 @@
 const Modbus = require('../models/modbusModel');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
-const modbusHandler = require('../modbus/modbusHandler');
+// const modbusHandler = require('../modbus/modbusHandler');
 const AppError = require('../utils/appError');
 
 exports.getAllEntrys = catchAsync(async (req, res, next) => {
@@ -26,23 +26,23 @@ exports.getDomainEntrys = catchAsync(async (req, res, next) => {
   }
 
   // 2) CALL THE UPDATE FUNCTION
-  const doc = await modbusHandler.updateValue(data, next);
+  // const doc = await modbusHandler.updateValue(data, next);
 
-  if (typeof doc[0] === 'string') {
-    return next(new AppError(doc[0], doc[1]));
-  }
+  // if (typeof doc[0] === 'string') {
+  //   return next(new AppError(doc[0], doc[1]));
+  // }
 
   // 3) SAVE ALL NEW VALUES IN DB BY LOOP
-  for (let i = 0; i < doc.length; i++) {
-    const element = doc[i];
-    element.save();
-  }
+  // for (let i = 0; i < doc.length; i++) {
+  //   const element = doc[i];
+  //   element.save();
+  // }
 
   // 4) RESPONSE ALL ENTRYS
   res.status(200).json({
     status: 'success',
-    results: doc.length,
-    data: doc,
+    results: data.length,
+    data: data,
   });
 });
 
@@ -55,22 +55,22 @@ exports.getAllActiveAlarm = catchAsync(async (req, res, next) => {
     return next(new AppError('no documents found with this domain', 404));
   }
 
-  // 2) CALL THE UPDATE FUNCTION
-  const doc = await modbusHandler.updateValue(data, next);
+  // // 2) CALL THE UPDATE FUNCTION
+  // const doc = await modbusHandler.updateValue(data, next);
 
-  if (typeof doc[0] === 'string') {
-    return next(new AppError(doc[0], doc[1]));
-  }
+  // if (typeof doc[0] === 'string') {
+  //   return next(new AppError(doc[0], doc[1]));
+  // }
 
-  // 3) SAVE ALL NEW VALUES IN DB BY LOOP
-  for (let i = 0; i < doc.length; i++) {
-    const element = doc[i];
-    element.save();
-  }
+  // // 3) SAVE ALL NEW VALUES IN DB BY LOOP
+  // for (let i = 0; i < doc.length; i++) {
+  //   const element = doc[i];
+  //   element.save();
+  // }
 
   // 4) FILTER OUT ACTIVE ALARMS
   const active = [];
-  doc.forEach((e) => {
+  data.forEach((e) => {
     if (e.value === 1) active.push(e);
   });
 
