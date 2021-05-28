@@ -1,5 +1,6 @@
 const express = require('express');
 
+const authController = require('../controllers/authController');
 const modbusController = require('../controllers/modbusController');
 
 const router = express.Router();
@@ -9,7 +10,7 @@ router.route('/').get(modbusController.getAllEntrys);
 router
   .route('/id/:id')
   .get(modbusController.getEntryByID)
-  .patch(modbusController.updateEntryByID);
+  .patch(authController.protect, modbusController.updateEntryByID);
 
 router.route('/domain/:domain').get(modbusController.getDomainEntrys);
 router.route('/getUpdate').get(modbusController.getAllEntrysUpdatet);

@@ -46,6 +46,7 @@ exports.getEntry = (Model) =>
 
 exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    console.log(req.headers);
     // 1) GET DOC FROM REG AND ADR
     let doc;
     if (req.baseUrl === '/api/v1/modbus') {

@@ -99,21 +99,27 @@ exports.updateValue = async (doc, next) => {
     const element = doc[i];
 
     let val;
-    switch (element.register) {
-      case 0:
-        val = await client.readCoils(element.address + offset, 1);
-        break;
-      case 1:
-        val = await client.readDiscreteInputs(element.address + offset, 1);
-        break;
-      case 3:
-        val = await client.readInputRegisters(element.address + offset, 1);
-        break;
-      case 4:
-        val = await client.readHoldingRegisters(element.address + offset, 1);
-        break;
-      default:
-        return [`register ${element.register} is not a valid register.`, 404];
+    try {
+      switch (element.register) {
+        case 0:
+          val = await client.readCoils(element.address + offset, 1);
+          break;
+        case 1:
+          val = await client.readDiscreteInputs(element.address + offset, 1);
+          break;
+        case 3:
+          val = await client.readInputRegisters(element.address + offset, 1);
+          break;
+        case 4:
+          val = await client.readHoldingRegisters(element.address + offset, 1);
+          break;
+        default:
+          return [`register ${element.register} is not a valid register.`, 404];
+      }
+    } catch (err) {
+      (err) => {
+        console.log(err);
+      };
     }
 
     // 2) CALCULATE EACH VALUE AND PUSH IN AN ARRAY
